@@ -6,6 +6,10 @@
 # Open
 
 3. Place world tiles
+    - Floor variation
+    - Grass
+    - Trees
+    - Cliffs
 4. Make player prefab
     - Movement
     - Stats
