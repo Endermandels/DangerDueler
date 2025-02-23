@@ -1,12 +1,12 @@
 # Closed
 
-
+1. Make player sprites
+2. Make world tiles
 
 # Open
 
-1. Make player sprites
-2. Make world tiles
-3. Make player prefab
+3. Place world tiles
+4. Make player prefab
     - Movement
     - Stats
     - SFX
