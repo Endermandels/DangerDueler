@@ -2,9 +2,6 @@
 
 1. Make player sprites
 2. Make world tiles
-
-# Open
-
 3. Place world tiles
     - Floor variation
     - Grass
@@ -12,19 +9,20 @@
     - Cliffs
 4. Make player prefab
     - Movement
-    - Stats
     - SFX
 
-# Backlog
+# Open
 
-- Make 3 monster sprites
-- Make monster prefab
-    - Stats
+5. Make 3 monster sprites
+6. Make monster prefabs
     - State machine
         - Idle
         - Wander
         - Chase player
     - SFX
+
+# Backlog
+
 - Transition to battle scene upon colliding with an enemy
 - Make debug console
 - Make battle player sprites
