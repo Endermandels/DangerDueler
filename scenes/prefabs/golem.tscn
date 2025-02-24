@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://ds4lrcdrth3fs"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/golem.gd" id="1_2dowp"]
+[ext_resource type="Texture2D" uid="uid://buw0elkqk57aj" path="res://assets/art/golem.png" id="2_vbve1"]
+[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://scenes/components/animation_component.tscn" id="3_ffm6p"]
+
+[sub_resource type="Animation" id="Animation_vq7tg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ts48x"]
+resource_name = "idle"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ip7tj"]
+resource_name = "run"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc62l"]
+_data = {
+"RESET": SubResource("Animation_vq7tg"),
+"idle": SubResource("Animation_ts48x"),
+"run": SubResource("Animation_ip7tj")
+}
+
+[node name="Golem" type="CharacterBody2D" node_paths=PackedStringArray("animation_component")]
+script = ExtResource("1_2dowp")
+animation_component = NodePath("AnimationComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_vbve1")
+offset = Vector2(0, -16)
+hframes = 4
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wc62l")
+}
+speed_scale = 0.5
+
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "anim_player") instance=ExtResource("3_ffm6p")]
+sprite = NodePath("../Sprite2D")
+anim_player = NodePath("../AnimationPlayer")

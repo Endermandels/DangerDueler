@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://cv868ijdwynaw"]
+[gd_scene load_steps=16 format=4 uid="uid://cv868ijdwynaw"]
 
 [ext_resource type="PackedScene" uid="uid://ei6dyn77oa43" path="res://scenes/prefabs/player.tscn" id="1_64dw6"]
 [ext_resource type="Texture2D" uid="uid://cfhm6hfwmhlw8" path="res://assets/art/tilemap.png" id="1_nu1gk"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_p06wf"]
 [ext_resource type="AudioStream" uid="uid://br14ii2ltjltt" path="res://assets/sfx/world/One-eyed Maestro.mp3" id="4_hnbkb"]
+[ext_resource type="PackedScene" uid="uid://ds4lrcdrth3fs" path="res://scenes/prefabs/golem.tscn" id="5_4cd8r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ph6k"]
 texture = ExtResource("1_nu1gk")
@@ -289,6 +290,9 @@ tile_set = SubResource("TileSet_h4s2q")
 
 [node name="Y-Sorted" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="Golem" parent="Y-Sorted" instance=ExtResource("5_4cd8r")]
+position = Vector2(-2, -411)
 
 [node name="Player" parent="Y-Sorted" instance=ExtResource("1_64dw6")]
 y_sort_enabled = true
