@@ -7,22 +7,22 @@
     - Grass
     - Trees
     - Cliffs
-
-# Open
-
 4. Make player prefab
     - Movement
     - SFX
 
-# Backlog
+# Open
 
-- Make 3 monster sprites
-- Make monster prefab
+5. Make 3 monster sprites
+6. Make monster prefabs
     - State machine
         - Idle
         - Wander
         - Chase player
     - SFX
+
+# Backlog
+
 - Transition to battle scene upon colliding with an enemy
 - Make debug console
 - Make battle player sprites
