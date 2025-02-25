@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfqvh3lx3s53v"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/phoenix.gd" id="1_a5omi"]
+[ext_resource type="Texture2D" uid="uid://d1jb6t54178ly" path="res://assets/art/phoenix.png" id="1_d28v5"]
+[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://scenes/components/animation_component.tscn" id="3_fdya6"]
+
+[sub_resource type="Animation" id="Animation_p5m2n"]
+resource_name = "idle"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_mssys"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_87utw"]
+resource_name = "run"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y1nih"]
+_data = {
+"RESET": SubResource("Animation_mssys"),
+"idle": SubResource("Animation_p5m2n"),
+"run": SubResource("Animation_87utw")
+}
+
+[node name="Phoenix" type="CharacterBody2D" node_paths=PackedStringArray("animation_component")]
+script = ExtResource("1_a5omi")
+animation_component = NodePath("AnimationComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("1_d28v5")
+offset = Vector2(0, -20)
+hframes = 4
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y1nih")
+}
+speed_scale = 0.5
+
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "anim_player") instance=ExtResource("3_fdya6")]
+sprite = NodePath("../Sprite2D")
+anim_player = NodePath("../AnimationPlayer")

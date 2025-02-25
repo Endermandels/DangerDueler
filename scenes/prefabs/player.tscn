@@ -87,6 +87,7 @@ radius = 4.0
 height = 40.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "input_component", "movement_component")]
+y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_1k6pf")
 animation_component = NodePath("AnimationComponent")

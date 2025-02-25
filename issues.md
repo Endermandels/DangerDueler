@@ -10,10 +10,10 @@
 4. Make player prefab
     - Movement
     - SFX
+5. Make 3 monster sprites
 
 # Open
 
-5. Make 3 monster sprites
 6. Make monster prefabs
     - State machine
         - Idle
