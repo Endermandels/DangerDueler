@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfqvh3lx3s53v"]
+[gd_scene load_steps=8 format=3 uid="uid://bb38br6f7275w"]
 
-[ext_resource type="Script" path="res://scripts/prefabs/phoenix.gd" id="1_a5omi"]
-[ext_resource type="Texture2D" uid="uid://d1jb6t54178ly" path="res://assets/art/phoenix.png" id="1_d28v5"]
-[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://scenes/components/animation_component.tscn" id="3_fdya6"]
+[ext_resource type="Texture2D" uid="uid://brq0ardgk6gbg" path="res://assets/art/gorgon.png" id="1_int5m"]
+[ext_resource type="Script" path="res://scripts/prefabs/gorgon.gd" id="1_lowqx"]
+[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://scenes/components/animation_component.tscn" id="3_3njx8"]
 
-[sub_resource type="Animation" id="Animation_p5m2n"]
+[sub_resource type="Animation" id="Animation_0denb"]
 resource_name = "idle"
 length = 0.333342
 loop_mode = 1
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_mssys"]
+[sub_resource type="Animation" id="Animation_bt0gg"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -37,7 +37,7 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_87utw"]
+[sub_resource type="Animation" id="Animation_8w745"]
 resource_name = "run"
 length = 0.333342
 loop_mode = 1
@@ -55,30 +55,29 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_y1nih"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8y2au"]
 _data = {
-"RESET": SubResource("Animation_mssys"),
-"idle": SubResource("Animation_p5m2n"),
-"run": SubResource("Animation_87utw")
+"RESET": SubResource("Animation_bt0gg"),
+"idle": SubResource("Animation_0denb"),
+"run": SubResource("Animation_8w745")
 }
 
-[node name="Phoenix" type="CharacterBody2D" node_paths=PackedStringArray("animation_component")]
-script = ExtResource("1_a5omi")
+[node name="Gorgon" type="CharacterBody2D" node_paths=PackedStringArray("animation_component")]
+script = ExtResource("1_lowqx")
 animation_component = NodePath("AnimationComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-y_sort_enabled = true
-texture = ExtResource("1_d28v5")
-offset = Vector2(0, -20)
+texture = ExtResource("1_int5m")
+offset = Vector2(0, -14)
 hframes = 4
 vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_y1nih")
+"": SubResource("AnimationLibrary_8y2au")
 }
 speed_scale = 0.5
 
-[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "anim_player") instance=ExtResource("3_fdya6")]
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "anim_player") instance=ExtResource("3_3njx8")]
 sprite = NodePath("../Sprite2D")
 anim_player = NodePath("../AnimationPlayer")
