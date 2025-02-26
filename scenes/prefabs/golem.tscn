@@ -109,8 +109,10 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="StateMachineComponent" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("5_cknl2")]
 current_state = NodePath("IdleState")
 
-[node name="IdleState" parent="StateMachineComponent" instance=ExtResource("6_hol42")]
+[node name="IdleState" parent="StateMachineComponent" node_paths=PackedStringArray("idle_finished_state") instance=ExtResource("6_hol42")]
+idle_finished_state = NodePath("../WanderState")
 
-[node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("input_component") instance=ExtResource("7_clor0")]
+[node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("input_component", "target_not_found_state") instance=ExtResource("7_clor0")]
 input_component = NodePath("../../InputComponent")
+target_not_found_state = NodePath("../IdleState")
 wander_time_max = 1.5

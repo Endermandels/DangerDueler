@@ -5,6 +5,9 @@ class_name WanderState
 @export var timer: Timer
 @export var input_component: InputComponent
 
+@export_group("States")
+@export var target_not_found_state: StateComponent ## Transition to this state when target is not found
+
 @export_group("Settings")
 @export var wander_time_max: float = 1.0 
 @export var wander_time_min: float = 0.5
@@ -19,4 +22,4 @@ func enter() -> void:
 
 func _on_timer_timeout():
 	input_component.set_input_vector(Vector2.ZERO)
-	transitioned.emit(self, "idlestate")
+	transitioned.emit(self, target_not_found_state)
