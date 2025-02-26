@@ -63,6 +63,8 @@ _data = {
 }
 
 [node name="Gorgon" type="CharacterBody2D" node_paths=PackedStringArray("animation_component")]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_lowqx")
 animation_component = NodePath("AnimationComponent")
 

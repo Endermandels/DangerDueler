@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://cv868ijdwynaw"]
 
-[ext_resource type="PackedScene" uid="uid://ei6dyn77oa43" path="res://scenes/prefabs/player.tscn" id="1_64dw6"]
+[ext_resource type="PackedScene" uid="uid://ds2pxl4sga0d0" path="res://scenes/prefabs/player.tscn" id="1_64dw6"]
 [ext_resource type="Texture2D" uid="uid://cfhm6hfwmhlw8" path="res://assets/art/tilemap.png" id="1_nu1gk"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_p06wf"]
 [ext_resource type="PackedScene" uid="uid://bfqvh3lx3s53v" path="res://scenes/prefabs/phoenix.tscn" id="4_4htsi"]

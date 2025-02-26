@@ -1,9 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds4lrcdrth3fs"]
+[gd_scene load_steps=14 format=3 uid="uid://ds4lrcdrth3fs"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/golem.gd" id="1_2dowp"]
 [ext_resource type="Texture2D" uid="uid://buw0elkqk57aj" path="res://assets/art/golem.png" id="2_vbve1"]
 [ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://components/animation_component.tscn" id="3_ffm6p"]
 [ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="4_tvwyt"]
+[ext_resource type="PackedScene" uid="uid://n65x4icr5pb3" path="res://components/state_machine_component.tscn" id="5_cknl2"]
+[ext_resource type="PackedScene" uid="uid://ckyo6tt52vlf1" path="res://components/idle_state.tscn" id="6_hol42"]
+[ext_resource type="PackedScene" uid="uid://bv4n8ikalyu84" path="res://components/wander_state.tscn" id="7_clor0"]
+[ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="8_lyive"]
 
 [sub_resource type="Animation" id="Animation_vq7tg"]
 length = 0.001
@@ -67,13 +71,14 @@ _data = {
 radius = 23.0
 height = 60.0
 
-[node name="Golem" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "movement_component")]
+[node name="Golem" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "movement_component", "input_component")]
 y_sort_enabled = true
 collision_layer = 4
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("1_2dowp")
 animation_component = NodePath("AnimationComponent")
 movement_component = NodePath("MovementComponent")
+input_component = NodePath("InputComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 27)
@@ -98,3 +103,14 @@ sprite = NodePath("../Sprite2D")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_tvwyt")]
+
+[node name="InputComponent" parent="." instance=ExtResource("8_lyive")]
+
+[node name="StateMachineComponent" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("5_cknl2")]
+current_state = NodePath("IdleState")
+
+[node name="IdleState" parent="StateMachineComponent" instance=ExtResource("6_hol42")]
+
+[node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("input_component") instance=ExtResource("7_clor0")]
+input_component = NodePath("../../InputComponent")
+wander_time_max = 1.5

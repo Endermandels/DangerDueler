@@ -1,7 +1,13 @@
 extends Node
-class_name State
+class_name StateComponent
 
-signal exited
+signal transitioned(from: StateComponent, to: String)
 
-func enter():
+func enter() -> void:
+    pass
+
+func update(delta: float) -> void:
+    pass
+
+func physics_update(delta: float) -> void:
     pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ei6dyn77oa43"]
+[gd_scene load_steps=12 format=3 uid="uid://ds2pxl4sga0d0"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player.gd" id="1_1k6pf"]
 [ext_resource type="Texture2D" uid="uid://chfuvhm1aflhs" path="res://assets/art/wraith-walker.png" id="1_jt8ak"]
@@ -111,6 +111,7 @@ sprite = NodePath("../Sprite2D")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="InputComponent" parent="." instance=ExtResource("4_xsaha")]
+keyboard_input = true
 
 [node name="MovementComponent" parent="." instance=ExtResource("5_rqnoy")]
 speed = 150

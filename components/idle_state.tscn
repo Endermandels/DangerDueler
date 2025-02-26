@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckyo6tt52vlf1"]
+
+[ext_resource type="Script" path="res://components/idle_state.gd" id="1_ttq2m"]
+
+[node name="IdleState" type="Node" node_paths=PackedStringArray("timer")]
+script = ExtResource("1_ttq2m")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
