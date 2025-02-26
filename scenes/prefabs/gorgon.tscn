@@ -2,7 +2,22 @@
 
 [ext_resource type="Texture2D" uid="uid://brq0ardgk6gbg" path="res://assets/art/gorgon.png" id="1_int5m"]
 [ext_resource type="Script" path="res://scripts/prefabs/gorgon.gd" id="1_lowqx"]
-[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://scenes/components/animation_component.tscn" id="3_3njx8"]
+[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://components/animation_component.tscn" id="3_3njx8"]
+
+[sub_resource type="Animation" id="Animation_bt0gg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_0denb"]
 resource_name = "idle"
@@ -20,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_bt0gg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_8w745"]

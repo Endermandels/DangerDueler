@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/prefabs/player.gd" id="1_1k6pf"]
 [ext_resource type="Texture2D" uid="uid://chfuvhm1aflhs" path="res://assets/art/wraith-walker.png" id="1_jt8ak"]
-[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://scenes/components/animation_component.tscn" id="3_4bmih"]
-[ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://scenes/components/input_component.tscn" id="4_xsaha"]
-[ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://scenes/components/movement_component.tscn" id="5_rqnoy"]
+[ext_resource type="PackedScene" uid="uid://s4fh6g7sht2d" path="res://components/animation_component.tscn" id="3_4bmih"]
+[ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="4_xsaha"]
+[ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="5_rqnoy"]
 [ext_resource type="AudioStream" uid="uid://bqp1pgyvbn66b" path="res://assets/sfx/player/walk1.wav" id="6_6vcdi"]
 
 [sub_resource type="Animation" id="Animation_uw1bi"]
