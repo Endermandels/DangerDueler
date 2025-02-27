@@ -24,11 +24,9 @@ func enter() -> void:
 	timer.start()
 
 func _on_timer_timeout() -> void:
-	ai_component.set_move_vector(Vector2.ZERO)
 	transitioned.emit(self, on_target_not_found_state)
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
-	if timer.is_stopped():
-		return
+	timer.stop()
 	ai_component.set_target(body)
 	transitioned.emit(self, on_target_found)

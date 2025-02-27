@@ -136,8 +136,11 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="StateMachineComponent" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("5_cknl2")]
 current_state = NodePath("IdleState")
 
-[node name="IdleState" parent="StateMachineComponent" node_paths=PackedStringArray("on_idle_finished_state") instance=ExtResource("6_hol42")]
+[node name="IdleState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "player_detector", "on_idle_finished_state", "on_target_found") instance=ExtResource("6_hol42")]
+ai_component = NodePath("../../AIComponent")
+player_detector = NodePath("../../PlayerDetector")
 on_idle_finished_state = NodePath("../WanderState")
+on_target_found = NodePath("../ChaseState")
 
 [node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "player_detector", "on_target_not_found_state", "on_target_found") instance=ExtResource("7_clor0")]
 ai_component = NodePath("../../AIComponent")
@@ -146,8 +149,10 @@ on_target_not_found_state = NodePath("../IdleState")
 on_target_found = NodePath("../ChaseState")
 wander_time_max = 1.5
 
-[node name="ChaseState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component") instance=ExtResource("10_qrtb5")]
+[node name="ChaseState" parent="StateMachineComponent" node_paths=PackedStringArray("on_target_exited", "ai_component", "player_detector") instance=ExtResource("10_qrtb5")]
+on_target_exited = NodePath("../IdleState")
 ai_component = NodePath("../../AIComponent")
+player_detector = NodePath("../../PlayerDetector")
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 0
