@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="8_lyive"]
 [ext_resource type="PackedScene" uid="uid://dibkn267ybrp2" path="res://components/ai_component.tscn" id="9_n3w6g"]
 [ext_resource type="PackedScene" uid="uid://dkq7ca8v100cb" path="res://components/states/chase_state.tscn" id="10_qrtb5"]
+[ext_resource type="PackedScene" uid="uid://ddfqxwu0k8ukk" path="res://components/target_detector.tscn" id="11_7yu1j"]
 
 [sub_resource type="Animation" id="Animation_vq7tg"]
 length = 0.001
@@ -91,9 +92,6 @@ _data = {
 radius = 11.0
 height = 62.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ro30e"]
-radius = 133.004
-
 [node name="Golem" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "movement_component", "ai_component")]
 y_sort_enabled = true
 collision_layer = 4
@@ -136,26 +134,23 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="StateMachineComponent" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("5_cknl2")]
 current_state = NodePath("IdleState")
 
-[node name="IdleState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "player_detector", "on_idle_finished_state", "on_target_found") instance=ExtResource("6_hol42")]
+[node name="IdleState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "target_detector", "on_idle_finished_state", "on_target_found_state") instance=ExtResource("6_hol42")]
 ai_component = NodePath("../../AIComponent")
-player_detector = NodePath("../../PlayerDetector")
+target_detector = NodePath("../../TargetDetector")
 on_idle_finished_state = NodePath("../WanderState")
-on_target_found = NodePath("../ChaseState")
+on_target_found_state = NodePath("../ChaseState")
 
-[node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "player_detector", "on_target_not_found_state", "on_target_found") instance=ExtResource("7_clor0")]
+[node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "target_detector", "on_target_not_found_state", "on_target_found_state") instance=ExtResource("7_clor0")]
 ai_component = NodePath("../../AIComponent")
-player_detector = NodePath("../../PlayerDetector")
+target_detector = NodePath("../../TargetDetector")
 on_target_not_found_state = NodePath("../IdleState")
-on_target_found = NodePath("../ChaseState")
+on_target_found_state = NodePath("../ChaseState")
 wander_time_max = 1.5
 
-[node name="ChaseState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "player_detector", "on_target_exited") instance=ExtResource("10_qrtb5")]
+[node name="ChaseState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "target_detector", "on_target_exited_state") instance=ExtResource("10_qrtb5")]
 ai_component = NodePath("../../AIComponent")
-player_detector = NodePath("../../PlayerDetector")
-on_target_exited = NodePath("../IdleState")
+target_detector = NodePath("../../TargetDetector")
+on_target_exited_state = NodePath("../IdleState")
 
-[node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-shape = SubResource("CircleShape2D_ro30e")
+[node name="TargetDetector" parent="." instance=ExtResource("11_7yu1j")]
+collision_mask = 1

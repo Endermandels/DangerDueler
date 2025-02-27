@@ -3,25 +3,13 @@ class_name ChaseState
 
 @export_group("Nodes")
 @export var ai_component: AIComponent
-@export var player_detector: Area2D
+@export var target_detector: TargetDetector
 
 @export_group("States")
-@export var on_target_exited: StateComponent ## Transition to this state when target exits the player_detector area
-
-var body: Node2D ## The node that is chasing the target
-var target: Node2D ## The node that is being chased by the body
-
-func _ready() -> void:
-	player_detector.body_exited.connect(_on_player_detector_body_exited)
-
-func enter() -> void:
-	body = ai_component.body
-	target = ai_component.target
+@export var on_target_exited_state: StateComponent ## Transition to this state when target exits the target_detector area
 
 func physics_update(_delta: float) -> void:
-	ai_component.set_move_vector(target.global_position - body.global_position)
-
-func _on_player_detector_body_exited(exited_body: Node2D):
-	if exited_body == target:
-		ai_component.set_target(null)
-		transitioned.emit(self, on_target_exited)
+	if not target_detector.target:
+		transitioned.emit(self, on_target_exited_state)
+		return
+	ai_component.move_towards(target_detector.target.global_position)
