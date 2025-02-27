@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ds4lrcdrth3fs"]
+[gd_scene load_steps=18 format=3 uid="uid://ds4lrcdrth3fs"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/golem.gd" id="1_2dowp"]
 [ext_resource type="Texture2D" uid="uid://buw0elkqk57aj" path="res://assets/art/golem.png" id="2_vbve1"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://ckyo6tt52vlf1" path="res://components/idle_state.tscn" id="6_hol42"]
 [ext_resource type="PackedScene" uid="uid://bv4n8ikalyu84" path="res://components/wander_state.tscn" id="7_clor0"]
 [ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="8_lyive"]
+[ext_resource type="PackedScene" uid="uid://dibkn267ybrp2" path="res://components/ai_component.tscn" id="9_n3w6g"]
+[ext_resource type="PackedScene" uid="uid://dkq7ca8v100cb" path="res://components/chase_state.tscn" id="10_qrtb5"]
 
 [sub_resource type="Animation" id="Animation_vq7tg"]
 length = 0.001
@@ -60,33 +62,54 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_jd01n"]
+resource_name = "attack"
+length = 0.333342
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wc62l"]
 _data = {
 "RESET": SubResource("Animation_vq7tg"),
+"attack": SubResource("Animation_jd01n"),
 "idle": SubResource("Animation_ts48x"),
 "run": SubResource("Animation_ip7tj")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8eenl"]
-radius = 23.0
-height = 60.0
+radius = 11.0
+height = 62.0
 
-[node name="Golem" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "movement_component", "input_component")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ro30e"]
+radius = 133.004
+
+[node name="Golem" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "movement_component", "ai_component")]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_2dowp")
 animation_component = NodePath("AnimationComponent")
 movement_component = NodePath("MovementComponent")
-input_component = NodePath("InputComponent")
+ai_component = NodePath("AIComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 27)
+position = Vector2(0, 8)
 scale = Vector2(2, 2)
 texture = ExtResource("2_vbve1")
 offset = Vector2(0, -16)
 hframes = 4
-vframes = 2
+vframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -96,7 +119,11 @@ speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8eenl")
+
+[node name="AIComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("9_n3w6g")]
+body = NodePath("..")
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "anim_player") instance=ExtResource("3_ffm6p")]
 sprite = NodePath("../Sprite2D")
@@ -109,10 +136,21 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="StateMachineComponent" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("5_cknl2")]
 current_state = NodePath("IdleState")
 
-[node name="IdleState" parent="StateMachineComponent" node_paths=PackedStringArray("idle_finished_state") instance=ExtResource("6_hol42")]
-idle_finished_state = NodePath("../WanderState")
+[node name="IdleState" parent="StateMachineComponent" node_paths=PackedStringArray("on_idle_finished_state") instance=ExtResource("6_hol42")]
+on_idle_finished_state = NodePath("../WanderState")
 
-[node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("input_component", "target_not_found_state") instance=ExtResource("7_clor0")]
-input_component = NodePath("../../InputComponent")
-target_not_found_state = NodePath("../IdleState")
+[node name="WanderState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "player_detector", "on_target_not_found_state", "on_target_found") instance=ExtResource("7_clor0")]
+ai_component = NodePath("../../AIComponent")
+player_detector = NodePath("../../PlayerDetector")
+on_target_not_found_state = NodePath("../IdleState")
+on_target_found = NodePath("../ChaseState")
 wander_time_max = 1.5
+
+[node name="ChaseState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component") instance=ExtResource("10_qrtb5")]
+ai_component = NodePath("../../AIComponent")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_ro30e")

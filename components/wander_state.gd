@@ -3,10 +3,12 @@ class_name WanderState
 
 @export_group("Nodes")
 @export var timer: Timer
-@export var input_component: InputComponent
+@export var ai_component: AIComponent
+@export var player_detector: Area2D
 
 @export_group("States")
-@export var target_not_found_state: StateComponent ## Transition to this state when target is not found
+@export var on_target_not_found_state: StateComponent ## Transition to this state when target is not found
+@export var on_target_found: StateComponent ## Transition to this state when target is found
 
 @export_group("Settings")
 @export var wander_time_max: float = 1.0 
@@ -14,12 +16,19 @@ class_name WanderState
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
+	player_detector.body_entered.connect(_on_player_detector_body_entered)
 
 func enter() -> void:
-	input_component.set_input_vector(Vector2(randf() - 0.5, randf() - 0.5).normalized())
+	ai_component.set_move_vector(Vector2(randf() - 0.5, randf() - 0.5))
 	timer.wait_time = clampf(randf_range(wander_time_min, wander_time_max), 0.0, INF)
 	timer.start()
 
-func _on_timer_timeout():
-	input_component.set_input_vector(Vector2.ZERO)
-	transitioned.emit(self, target_not_found_state)
+func _on_timer_timeout() -> void:
+	ai_component.set_move_vector(Vector2.ZERO)
+	transitioned.emit(self, on_target_not_found_state)
+
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	if timer.is_stopped():
+		return
+	ai_component.set_target(body)
+	transitioned.emit(self, on_target_found)

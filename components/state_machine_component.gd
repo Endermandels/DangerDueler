@@ -10,7 +10,7 @@ func _ready() -> void:
 	current_state.enter()
 
 func _on_state_transitioned(_from: StateComponent, to: StateComponent):
-	if not to:
+	if not to or _from != current_state:
 		return
 	to.enter()
 	current_state = to
