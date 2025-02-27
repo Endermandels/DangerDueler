@@ -6,7 +6,7 @@ class_name ChaseState
 @export var player_detector: Area2D
 
 @export_group("States")
-@export var on_target_exited: StateComponent
+@export var on_target_exited: StateComponent ## Transition to this state when target exits the player_detector area
 
 var body: Node2D ## The node that is chasing the target
 var target: Node2D ## The node that is being chased by the body

@@ -2,9 +2,10 @@ extends StateComponent
 class_name IdleState
 
 @export_group("Nodes")
-@export var timer: Timer
 @export var ai_component: AIComponent
 @export var player_detector: Area2D
+@export_subgroup("Internal")
+@export var timer: Timer
 
 @export_group("States")
 @export var on_idle_finished_state: StateComponent ## Transition to this state when done idling
@@ -13,6 +14,8 @@ class_name IdleState
 @export_group("Settings")
 @export var idle_time_max: float = 1.5
 @export var idle_time_min: float = 1.0
+
+
 
 func _ready() -> void:
     timer.timeout.connect(_on_timer_timeout)

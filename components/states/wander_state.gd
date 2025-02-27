@@ -1,10 +1,12 @@
 extends StateComponent
 class_name WanderState
 
+
 @export_group("Nodes")
-@export var timer: Timer
 @export var ai_component: AIComponent
 @export var player_detector: Area2D
+@export_subgroup("Internal")
+@export var timer: Timer
 
 @export_group("States")
 @export var on_target_not_found_state: StateComponent ## Transition to this state when target is not found
@@ -13,6 +15,7 @@ class_name WanderState
 @export_group("Settings")
 @export var wander_time_max: float = 1.0 
 @export var wander_time_min: float = 0.5
+
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)

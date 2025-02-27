@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bv4n8ikalyu84"]
 
-[ext_resource type="Script" path="res://components/wander_state.gd" id="1_sew1v"]
+[ext_resource type="Script" path="res://components/states/wander_state.gd" id="1_sew1v"]
 
 [node name="WanderState" type="Node" node_paths=PackedStringArray("timer")]
 script = ExtResource("1_sew1v")

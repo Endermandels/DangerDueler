@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dkq7ca8v100cb"]
 
-[ext_resource type="Script" path="res://components/chase_state.gd" id="1_c63uu"]
+[ext_resource type="Script" path="res://components/states/chase_state.gd" id="1_c63uu"]
 
 [node name="ChaseState" type="Node"]
 script = ExtResource("1_c63uu")
