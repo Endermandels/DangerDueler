@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ds2pxl4sga0d0"]
+[gd_scene load_steps=14 format=3 uid="uid://ds2pxl4sga0d0"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player.gd" id="1_1k6pf"]
 [ext_resource type="Texture2D" uid="uid://chfuvhm1aflhs" path="res://assets/art/wraith-walker.png" id="1_jt8ak"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="4_xsaha"]
 [ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="5_rqnoy"]
 [ext_resource type="AudioStream" uid="uid://bqp1pgyvbn66b" path="res://assets/sfx/player/walk1.wav" id="6_6vcdi"]
+[ext_resource type="PackedScene" uid="uid://bgwdble6wviig" path="res://components/attack_component.tscn" id="7_0h4pg"]
+[ext_resource type="PackedScene" uid="uid://dr5qeqpd2vg3t" path="res://scenes/prefabs/shadow_ball_projectile.tscn" id="8_wi5c1"]
 
 [sub_resource type="Animation" id="Animation_uw1bi"]
 length = 0.001
@@ -86,13 +88,15 @@ _data = {
 radius = 4.0
 height = 40.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "input_component", "movement_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "input_component", "movement_component", "attack_component")]
 y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_1k6pf")
 animation_component = NodePath("AnimationComponent")
 input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
+attack_component = NodePath("AttackComponent")
+metadata/_edit_vertical_guides_ = [-275.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_jt8ak")
@@ -106,15 +110,6 @@ libraries = {
 }
 speed_scale = 0.5
 
-[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "anim_player") instance=ExtResource("3_4bmih")]
-sprite = NodePath("../Sprite2D")
-anim_player = NodePath("../AnimationPlayer")
-
-[node name="InputComponent" parent="." instance=ExtResource("4_xsaha")]
-
-[node name="MovementComponent" parent="." instance=ExtResource("5_rqnoy")]
-speed = 150
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wxrck")
@@ -122,3 +117,18 @@ shape = SubResource("CapsuleShape2D_wxrck")
 [node name="MovementSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_6vcdi")
 volume_db = -3.795
+
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "anim_player") instance=ExtResource("3_4bmih")]
+sprite = NodePath("../Sprite2D")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("4_xsaha")]
+body = NodePath("..")
+
+[node name="MovementComponent" parent="." instance=ExtResource("5_rqnoy")]
+speed = 150
+
+[node name="AttackComponent" parent="." node_paths=PackedStringArray("input_component", "body") instance=ExtResource("7_0h4pg")]
+input_component = NodePath("../InputComponent")
+body = NodePath("..")
+hitbox_component = ExtResource("8_wi5c1")

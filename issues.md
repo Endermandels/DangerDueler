@@ -19,7 +19,9 @@
         - Idle
         - Wander
         - Chase player
+        - Attack player
     - SFX
+    - Player attack
 
 # Backlog
 

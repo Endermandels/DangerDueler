@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://dr5qeqpd2vg3t"]
+
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="1_afks2"]
+[ext_resource type="Texture2D" uid="uid://cc6ooq18kc37h" path="res://assets/art/shadow-ball.png" id="2_mgo5d"]
+
+[sub_resource type="Animation" id="Animation_nhsq8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_va7uv"]
+resource_name = "fly"
+length = 0.250008
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ffypg"]
+_data = {
+"RESET": SubResource("Animation_nhsq8"),
+"fly": SubResource("Animation_va7uv")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dmse8"]
+radius = 12.0
+
+[node name="ShadowBallProjectile" type="Area2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_afks2")
+is_ranged = true
+speed = 10.0
+travel_distance = 10000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -1)
+texture = ExtResource("2_mgo5d")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ffypg")
+}
+autoplay = "fly"
+speed_scale = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dmse8")
