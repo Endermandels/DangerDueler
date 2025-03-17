@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="4_xsaha"]
 [ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="5_rqnoy"]
 [ext_resource type="AudioStream" uid="uid://bqp1pgyvbn66b" path="res://assets/sfx/player/walk1.wav" id="6_6vcdi"]
-[ext_resource type="PackedScene" uid="uid://bgwdble6wviig" path="res://components/attack_component.tscn" id="7_0h4pg"]
-[ext_resource type="PackedScene" uid="uid://dr5qeqpd2vg3t" path="res://scenes/prefabs/shadow_ball_projectile.tscn" id="8_wi5c1"]
+[ext_resource type="PackedScene" uid="uid://lkhubl3yrc0" path="res://components/attack_component.tscn" id="7_0h4pg"]
+[ext_resource type="PackedScene" uid="uid://cmgb87jndnhxm" path="res://scenes/prefabs/shadow_ball_projectile.tscn" id="8_wi5c1"]
 
 [sub_resource type="Animation" id="Animation_uw1bi"]
 length = 0.001

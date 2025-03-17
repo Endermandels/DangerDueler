@@ -1,0 +1,29 @@
+extends StateComponent
+class_name AttackState
+
+@export_group("Nodes")
+@export var ai_component: AIComponent
+@export var animation_component: AnimationComponent
+@export var target_detector: TargetDetector
+
+@export_group("States")
+@export var on_attack_finished_state: StateComponent ## Transition to this state when done attacking
+
+func _ready() -> void:
+	animation_component.anim_player.animation_finished.connect(_on_animation_player_finished)
+
+func enter() -> void:
+	ai_component.is_attacking = true
+	ai_component.stop_moving()
+
+	# Make sure the NPC is facing the correct direction
+	if target_detector.target.global_position.x < ai_component.body.global_position.x and \
+			not animation_component.sprite.flip_h:
+		animation_component.sprite.flip_h = true
+	elif target_detector.target.global_position.x > ai_component.body.global_position.x and \
+			animation_component.sprite.flip_h:
+		animation_component.sprite.flip_h = false
+
+func _on_animation_player_finished(_anim_name: StringName) -> void:
+	ai_component.is_attacking = false
+	transitioned.emit(self, on_attack_finished_state)

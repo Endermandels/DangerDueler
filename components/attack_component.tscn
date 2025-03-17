@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgwdble6wviig"]
+[gd_scene load_steps=2 format=3 uid="uid://lkhubl3yrc0"]
 
 [ext_resource type="Script" path="res://components/attack_component.gd" id="1_s2njs"]
 

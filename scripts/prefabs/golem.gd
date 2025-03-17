@@ -10,5 +10,6 @@ func _physics_process(_delta: float) -> void:
 	movement_component.handle_movement(self, ai_component.move_vector)
 	animation_component.handle_facing_horizontal_direction(velocity.x)
 	animation_component.handle_movement_animation(self)
+	animation_component.handle_attack_animation(ai_component.is_attacking)
 
 	move_and_slide()

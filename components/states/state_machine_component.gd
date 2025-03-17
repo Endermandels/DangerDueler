@@ -8,6 +8,7 @@ class_name StateMachineComponent
 ## Enter into the current state
 func _ready() -> void:
 	for state: StateComponent in get_children():
+		print(state.name)
 		state.transitioned.connect(_on_state_transitioned)
 	current_state.enter()
 

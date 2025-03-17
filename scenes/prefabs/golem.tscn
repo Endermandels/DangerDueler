@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://n65x4icr5pb3" path="res://components/states/state_machine_component.tscn" id="5_cknl2"]
 [ext_resource type="PackedScene" uid="uid://ckyo6tt52vlf1" path="res://components/states/idle_state.tscn" id="6_hol42"]
 [ext_resource type="PackedScene" uid="uid://bv4n8ikalyu84" path="res://components/states/wander_state.tscn" id="7_clor0"]
-[ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="8_lyive"]
 [ext_resource type="PackedScene" uid="uid://dibkn267ybrp2" path="res://components/ai_component.tscn" id="9_n3w6g"]
+[ext_resource type="PackedScene" uid="uid://cmlouow7r8jtf" path="res://components/states/attack_state.tscn" id="10_22bl7"]
 [ext_resource type="PackedScene" uid="uid://dkq7ca8v100cb" path="res://components/states/chase_state.tscn" id="10_qrtb5"]
 [ext_resource type="PackedScene" uid="uid://ddfqxwu0k8ukk" path="res://components/target_detector.tscn" id="11_7yu1j"]
 [ext_resource type="AudioStream" uid="uid://5yob5ssev46j" path="res://assets/sfx/golem/step.wav" id="12_fd5st"]
@@ -147,8 +147,6 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_tvwyt")]
 
-[node name="InputComponent" parent="." instance=ExtResource("8_lyive")]
-
 [node name="StateMachineComponent" parent="." node_paths=PackedStringArray("current_state") instance=ExtResource("5_cknl2")]
 current_state = NodePath("IdleState")
 
@@ -165,10 +163,18 @@ on_target_not_found_state = NodePath("../IdleState")
 on_target_found_state = NodePath("../ChaseState")
 wander_time_max = 1.5
 
-[node name="ChaseState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "target_detector", "on_target_exited_state") instance=ExtResource("10_qrtb5")]
+[node name="ChaseState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "target_detector", "on_target_exited_state", "on_target_in_melee_range_state") instance=ExtResource("10_qrtb5")]
 ai_component = NodePath("../../AIComponent")
 target_detector = NodePath("../../TargetDetector")
+attack_range = 45.802
 on_target_exited_state = NodePath("../IdleState")
+on_target_in_melee_range_state = NodePath("../AttackState")
+
+[node name="AttackState" parent="StateMachineComponent" node_paths=PackedStringArray("ai_component", "animation_component", "target_detector", "on_attack_finished_state") instance=ExtResource("10_22bl7")]
+ai_component = NodePath("../../AIComponent")
+animation_component = NodePath("../../AnimationComponent")
+target_detector = NodePath("../../TargetDetector")
+on_attack_finished_state = NodePath("../IdleState")
 
 [node name="TargetDetector" parent="." instance=ExtResource("11_7yu1j")]
 collision_mask = 1

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cakjrh1thtdvu"]
+
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="1_ipjey"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0mqok"]
+radius = 13.0
+height = 48.0
+
+[node name="MeleeHitbox" type="Area2D" node_paths=PackedStringArray("duration_timer")]
+script = ExtResource("1_ipjey")
+duration_timer = NodePath("Timer")
+damage = 30.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_0mqok")
