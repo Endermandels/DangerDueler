@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu0ko0s06tf1w"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/entities_container.gd" id="1_17ka1"]
+
+[node name="EntitiesContainer" type="Node2D" node_paths=PackedStringArray("hitbox_container")]
+y_sort_enabled = true
+script = ExtResource("1_17ka1")
+hitbox_container = NodePath("HitboxContainer")
+
+[node name="HitboxContainer" type="Node2D" parent="."]

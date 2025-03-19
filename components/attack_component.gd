@@ -14,7 +14,6 @@ class_name AttackComponent
 signal spawn_hitbox(hitbox: HitboxComponent)
 
 func _process(_delta: float) -> void:
-	assert(hitbox_component != null)
 	if input_component.should_attack:
 		input_component.should_attack = false
 		create_hitbox()

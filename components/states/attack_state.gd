@@ -5,9 +5,12 @@ class_name AttackState
 @export var ai_component: AIComponent
 @export var animation_component: AnimationComponent
 @export var target_detector: TargetDetector
+@export var hitbox_component: PackedScene ## The projectile to spawn (extends HitboxComponent)
 
 @export_group("States")
 @export var on_attack_finished_state: StateComponent ## Transition to this state when done attacking
+
+signal spawn_hitbox(hitbox: HitboxComponent)
 
 func _ready() -> void:
 	animation_component.anim_player.animation_finished.connect(_on_animation_player_finished)
@@ -23,6 +26,12 @@ func enter() -> void:
 	elif target_detector.target.global_position.x > ai_component.body.global_position.x and \
 			animation_component.sprite.flip_h:
 		animation_component.sprite.flip_h = false
+
+func create_hitbox() -> void:
+	var hitbox: HitboxComponent = hitbox_component.instantiate()
+	hitbox.direction = ai_component.attack_vector
+	hitbox.global_position = ai_component.body.global_position
+	spawn_hitbox.emit(hitbox)
 
 func _on_animation_player_finished(_anim_name: StringName) -> void:
 	ai_component.is_attacking = false
