@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ds4lrcdrth3fs"]
+[gd_scene load_steps=20 format=3 uid="uid://ds4lrcdrth3fs"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/golem.gd" id="1_2dowp"]
 [ext_resource type="Texture2D" uid="uid://buw0elkqk57aj" path="res://assets/art/golem.png" id="2_vbve1"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dibkn267ybrp2" path="res://components/ai_component.tscn" id="9_n3w6g"]
 [ext_resource type="PackedScene" uid="uid://cmlouow7r8jtf" path="res://components/states/attack_state.tscn" id="10_22bl7"]
 [ext_resource type="PackedScene" uid="uid://dkq7ca8v100cb" path="res://components/states/chase_state.tscn" id="10_qrtb5"]
+[ext_resource type="PackedScene" uid="uid://cakjrh1thtdvu" path="res://scenes/prefabs/golem_attack_hitbox.tscn" id="11_4xuew"]
 [ext_resource type="PackedScene" uid="uid://ddfqxwu0k8ukk" path="res://components/target_detector.tscn" id="11_7yu1j"]
 [ext_resource type="AudioStream" uid="uid://5yob5ssev46j" path="res://assets/sfx/golem/step.wav" id="12_fd5st"]
 
@@ -43,6 +44,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [8, 9, 10, 11]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachineComponent/AttackState")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.166667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"create_hitbox"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ts48x"]
@@ -174,6 +189,7 @@ on_target_in_melee_range_state = NodePath("../AttackState")
 ai_component = NodePath("../../AIComponent")
 animation_component = NodePath("../../AnimationComponent")
 target_detector = NodePath("../../TargetDetector")
+hitbox_component = ExtResource("11_4xuew")
 on_attack_finished_state = NodePath("../IdleState")
 
 [node name="TargetDetector" parent="." instance=ExtResource("11_7yu1j")]

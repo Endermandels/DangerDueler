@@ -51,7 +51,7 @@ collision_mask = 0
 script = ExtResource("1_afks2")
 is_ranged = true
 speed = 10.0
-travel_distance = 10000.0
+travel_distance = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, -1)

@@ -88,14 +88,13 @@ _data = {
 radius = 4.0
 height = 40.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "input_component", "movement_component", "attack_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_component", "input_component", "movement_component")]
 y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_1k6pf")
 animation_component = NodePath("AnimationComponent")
 input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
-attack_component = NodePath("AttackComponent")
 metadata/_edit_vertical_guides_ = [-275.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

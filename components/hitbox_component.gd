@@ -23,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 	if is_ranged and speed > 0:
 		if distance_traveled >= travel_distance:
 			speed = 0
-		distance_traveled += global_position.distance_to(direction*speed)
+		distance_traveled += global_position.distance_to(global_position + direction*speed)
 		global_position = global_position + direction*speed
 	elif not duration_timer:
 		queue_free()
