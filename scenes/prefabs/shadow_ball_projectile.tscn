@@ -45,11 +45,11 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_dmse8"]
 radius = 12.0
 
-[node name="ShadowBallProjectile" type="Area2D"]
+[node name="ShadowBallProjectile" type="Area2D" node_paths=PackedStringArray("collision_shape")]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_afks2")
-is_ranged = true
+collision_shape = NodePath("CollisionShape2D")
 speed = 10.0
 travel_distance = 200.0
 

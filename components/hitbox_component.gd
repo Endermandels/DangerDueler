@@ -4,14 +4,13 @@ class_name HitboxComponent
 @export_group("Nodes")
 @export_subgroup("Internal")
 @export var duration_timer: Timer = null ## How long after the hitbox stops moving until the hitbox dies
+@export var collision_shape: CollisionShape2D = null
 
 @export_group("Settings")
 @export var damage: float = 0.0 ## TODO: Change to Effect before starting battle
-@export var is_ranged: bool = false
-@export_subgroup("Ranged Settings")
-@export var speed: float = 0.0 ## Projectile speed
-@export var travel_distance: float = 0.0 ## How far the projectile travels
-@export var direction: Vector2 = Vector2.ZERO ## Which direction the projectile should travel in
+@export var speed: float = 0.0 ## Hitbox speed
+@export var travel_distance: float = 0.0 ## How far the hitbox travels
+@export var direction: Vector2 = Vector2.ZERO ## Which direction the hitbox should travel in
 
 var distance_traveled: float = 0.0 ## How far the projectile has traveled
 
@@ -20,7 +19,7 @@ func _ready() -> void:
 		duration_timer.timeout.connect(_on_duration_timer_timeout)
 
 func _physics_process(_delta: float) -> void:
-	if is_ranged and speed > 0:
+	if speed > 0:
 		if distance_traveled >= travel_distance:
 			speed = 0
 		distance_traveled += global_position.distance_to(global_position + direction*speed)
